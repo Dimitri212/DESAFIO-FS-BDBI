@@ -1,0 +1,50 @@
+/* DESAFIO_Físico: */
+
+CREATE TABLE Organizacao (
+    CNPJ varchar(20) PRIMARY KEY,
+    Nome varchar(20),
+    Telefone varchar(20),
+    Endereco varchar(50)
+);
+
+CREATE TABLE Sopao (
+    id_sopao int PRIMARY KEY,
+    Sabor varchar(20),
+    Custo int,
+    Data_Producao date
+);
+
+CREATE TABLE Usuario (
+    id_Usuario int PRIMARY KEY,
+    Nome varchar(50),
+    Cadastro_Unico varchar(20),
+    CPF int,
+    Data_nascimento date,
+    fk_Sopao_id_sopao int
+);
+
+CREATE TABLE Funcionario (
+    id_Funcionario int PRIMARY KEY,
+    Nome varchar(50),
+    CPF varchar(20),
+    Endereco varchar(50),
+    Telefone varchar(20),
+    Data_nascimento date,
+    fk_Sopao_id_sopao int,
+    fk_Organizacao_CNPJ varchar(20)
+);
+ 
+ALTER TABLE Usuario ADD CONSTRAINT FK_Usuario_2
+    FOREIGN KEY (fk_Sopao_id_sopao)
+    REFERENCES Sopao (id_sopao)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Funcionario ADD CONSTRAINT FK_Funcionario_2
+    FOREIGN KEY (fk_Sopao_id_sopao)
+    REFERENCES Sopao (id_sopao)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Funcionario ADD CONSTRAINT FK_Funcionario_3
+    FOREIGN KEY (fk_Organizacao_CNPJ)
+    REFERENCES Organizacao (CNPJ)
+    ON DELETE RESTRICT;
